@@ -8,11 +8,6 @@ class pocketapps_docs {
     private $sidebarContent;
     private $mainContent;
 
-    private function guid() {
-        return strtolower(sprintf('%04X%04X%04X%04X%04X%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535),
-            mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535)));
-    }
-
     public function header($title, $appName, $author = null, $date = null) {
         $dir = !empty($_SERVER['HTTPS']) ? 'https' : 'http' . '://' . $_SERVER['HTTP_HOST'] .
             substr(dirname(__FILE__), strlen(substr($_SERVER['SCRIPT_FILENAME'], 0,
@@ -102,7 +97,7 @@ class pocketapps_docs {
 
     public function add_item($title, $description, $implementation, $response, $errorCodes,
                               $sinceVersion = null,  $sinceDate = null, $lastUpdated = null) {
-        $id = $this->guid();
+        $id = str_replace(' ', '-', strtolower($title));
         $this->mainContent .= "<div id='$id' class='panel panel-default'><div class='panel-heading'><strong>$title</strong></div>" .
             "<div class='panel-body'>";
 
